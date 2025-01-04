@@ -57,7 +57,10 @@ spinButton.addEventListener('click', () => {
         const randomDegree = Math.floor(360 + Math.random() * 1800);
         const result = Math.floor(((randomDegree % 360) + 30) / 60) % 6 + 1;
         results.push(result);
-        wheel.style.transition = 'transform 4s ease-out';
+        let duration = 4; // default duration for the first wheel
+        if (index === 1) duration = 2; // 2x faster for the second wheel
+        if (index === 2) duration = 1.33; // 3x faster for the third wheel
+        wheel.style.transition = `transform ${duration}s ease-out`;
         wheel.style.transform = `rotate(${randomDegree}deg)`;
         if (result === betNumber) hits++;
     });
@@ -83,10 +86,4 @@ spinButton.addEventListener('click', () => {
             });
         }, 3000);
     }, 4000);
-});
-
-// Dark mode toggle
-const toggleDarkModeButton = document.getElementById('toggle-dark-mode');
-toggleDarkModeButton.addEventListener('click', () => {
-    document.body.classList.toggle('dark-mode');
 });
